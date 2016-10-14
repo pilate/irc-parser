@@ -1,0 +1,12 @@
+# irc-parser
+Parse lines of IRC text and, optimizes usage of control codes.
+
+```
+>>> print repr(test_str)
+'\x0314,01\x02[\x02 \x0300,01\x02Stats\x02 \x02\x0314,01|\x0300,01\x02 minip (2-0) \x02\x0314,01|\x0300,01\x02 Total\x02\x0314,01:\x0300,01\x02 2 \x02\x0314,01|\x0300,01\x02 Win ratio\x02\x0314,01:\x0300,01\x02 100.00% \x02\x0314,01|\x0300,01\x02 Points\x02\x0314,01:\x0300,01\x02 2 \x02\x0314,01|\x0300,01\x02 Score\x02\x0314,01:\x0300,01\x02 4.00\x0314,01 \x02]\x02\x0f'
+>>> tokens = tokenize(test_str)
+>>> blocks = blockize(tokens)
+>>> after_str = stringize(blocks)
+>>> print repr(after_str)
+'\x0314,1\x02[\x02 \x030\x02Stats\x02 \x0314\x02|\x030\x02 minip (2-0) \x0314\x02|\x030\x02 Total\x0314\x02:\x030\x02 2 \x0314\x02|\x030\x02 Win ratio\x0314\x02:\x030\x02 100.00% \x0314\x02|\x030\x02 Points\x0314\x02:\x030\x02 2 \x0314\x02|\x030\x02 Score\x0314\x02:\x030\x02 4.00\x0314 \x02]'
+```
