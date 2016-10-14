@@ -1,5 +1,5 @@
 # irc-parser
-Parse lines of IRC text and, optimizes usage of control codes.
+Parse IRC message contents (colors, formatting, etc) and optimize line length.
 
 ```
 >>> print repr(test_str)
