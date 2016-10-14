@@ -84,7 +84,6 @@ def blockize(tokens):
         elif token_type == COLOR:
             # Reset to default colors
             if not match["text_color"] and not match["bg_color"]:
-                print "reset found"
                 block.text_color = Block.text_color
                 block.bg_color = Block.bg_color
             if match["text_color"]:
@@ -92,7 +91,7 @@ def blockize(tokens):
             if match["bg_color"]:
                 block.bg_color = int(match["bg_color"])
         elif token_type == REVERSE:
-            block.text_color, blocks.bg_color = not block.bg_color, not block.text_color
+            block.text_color, blocks.bg_color = block.bg_color, block.text_color
         elif token_type == RESET:
             block = Block(text=block.text)
             blocks[-1] = block
