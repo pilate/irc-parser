@@ -70,6 +70,8 @@ def blockize(tokens):
 
         if token_type == TEXT:
             block.text += match["text"]
+            continue
+
         elif blocks[-1].text:
             block = copy.copy(block)
             block.text = ""
@@ -77,10 +79,13 @@ def blockize(tokens):
 
         if token_type == BOLD:
             block.bold = not block.bold
+
         elif token_type == ITALIC:
             block.italic = not block.italic
+
         elif token_type == UNDERLINE:
             block.underline = not block.underline
+
         elif token_type == COLOR:
             # Reset to default colors
             if not match["text_color"] and not match["bg_color"]:
@@ -90,8 +95,10 @@ def blockize(tokens):
                 block.text_color = int(match["text_color"])
             if match["bg_color"]:
                 block.bg_color = int(match["bg_color"])
+
         elif token_type == REVERSE:
-            block.text_color, blocks.bg_color = block.bg_color, block.text_color
+            block.text_color, block.bg_color = block.bg_color, block.text_color
+
         elif token_type == RESET:
             block = Block(text=block.text)
             blocks[-1] = block
@@ -114,9 +121,14 @@ def stringize(blocks):
             if block.bg_color != prev_block.bg_color:
                 output += ",{0}".format(block.bg_color)
 
-        if block.bold != prev_block.bold: output += chr(BOLD)
-        if block.italic != prev_block.italic: output += chr(ITALIC)
-        if block.underline != prev_block.underline: output += chr(UNDERLINE)
+        if block.bold != prev_block.bold:
+            output += chr(BOLD)
+
+        if block.italic != prev_block.italic:
+            output += chr(ITALIC)
+
+        if block.underline != prev_block.underline:
+            output += chr(UNDERLINE)
 
         output += block.text
 
